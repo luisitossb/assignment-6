@@ -1,4 +1,4 @@
-# assignment-6
+# CSC317 - Assignment - 6
 Individual JS Project 
 
 # Things I've learned 
