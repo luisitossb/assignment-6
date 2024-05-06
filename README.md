@@ -4,6 +4,6 @@
 
 
 # Things I've learned 
-###### *Thing 1 
-###### *Thing 2
+###### *Better about string comaprison, like how it compares sky and orange so I can order things properly
+###### *Sometimes it's annoying to see how to get an operator / comparison completely the same as the one they ask of you, and having a good layout for everything is really important
 
