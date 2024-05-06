@@ -1,18 +1,19 @@
 
-// Create elements using DOM API
 const root = document.getElementById('root');
+
 const textarea = document.createElement('textarea');
 const button = document.createElement('button');
-const resultTable = document.createElement('table');
+const visualTable = document.createElement('table');
+
 
 button.textContent = 'Submit';
 
-// Add created elements to root div
+
 root.appendChild(textarea);
 root.appendChild(button);
-root.appendChild(resultTable);
+root.appendChild(visualTable);
 
-// Function to analyze text and create frequency table
+
 function analyzeText(text) {
     const words = text.trim().toLowerCase().split(/\s+/);
     const frequency = {};
@@ -23,17 +24,22 @@ function analyzeText(text) {
 
     console.log(frequency);
 
-    // Sort by frequency (desc) and then lexicographically
+
     const sortedWords = Object.keys(frequency)
-        .sort((a, b) => frequency[b] - frequency[a] || a.localeCompare(b))
+        .sort((a, b) => {
+            const freqDiff = frequency[b] - frequency[a];
+            if (freqDiff !== 0) {
+                return freqDiff;
+            }
+            return b.localeCompare(a);
+        })
         .slice(0, 5);
 
     return sortedWords.map(word => [word, frequency[word]]);
 }
 
-// Function to render table
-function renderTable(data) {
-    resultTable.innerHTML = '';
+function createTable(data) {
+    visualTable.innerHTML = '';
 
     const headers = ['Word', 'Frequency'];
     const headerRow = document.createElement('tr');
@@ -44,7 +50,7 @@ function renderTable(data) {
         headerRow.appendChild(header);
     });
 
-    resultTable.appendChild(headerRow);
+    visualTable.appendChild(headerRow);
 
     data.forEach(([word, frequency]) => {
         const row = document.createElement('tr');
@@ -56,13 +62,12 @@ function renderTable(data) {
 
         row.appendChild(wordCell);
         row.appendChild(freqCell);
-        resultTable.appendChild(row);
+        visualTable.appendChild(row);
     });
 }
 
-// Add event listener to button
 button.addEventListener('click', () => {
     const text = textarea.value;
     const result = analyzeText(text);
-    renderTable(result);
+    createTable(result);
 });
